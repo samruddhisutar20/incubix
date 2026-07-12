@@ -49,16 +49,16 @@ export const Avatar: React.FC<AvatarProps> = ({
   const displayInitials = initials || name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase()
 
   return (
-    <div className={`relative inline-flex shrink-0 ${sizeMap[size]} ${className}`}>
+    <div className={`relative inline-flex shrink-0 select-none ${sizeMap[size]} ${className}`}>
       {src ? (
         <img
           src={src}
           alt={name}
-          className={`${sizeMap[size]} rounded-full object-cover ring-2 ring-white dark:ring-slate-950`}
+          className={`${sizeMap[size]} rounded-full object-cover ring-1 ring-slate-100 dark:ring-slate-900`}
         />
       ) : (
         <div
-          className={`${sizeMap[size]} rounded-full bg-gradient-to-br ${gradients[variant]} flex items-center justify-center text-white font-bold shadow-sm ring-2 ring-white dark:ring-slate-950`}
+          className={`${sizeMap[size]} rounded-full bg-gradient-to-br ${gradients[variant]} flex items-center justify-center text-white font-semibold shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] ring-1 ring-slate-100 dark:ring-slate-900`}
           aria-label={name}
           title={name}
         >
@@ -67,7 +67,7 @@ export const Avatar: React.FC<AvatarProps> = ({
       )}
       {online !== undefined && (
         <span
-          className={`absolute bottom-0 right-0 ${dotSizes[size]} rounded-full ${online ? 'bg-emerald-500' : 'bg-slate-400'} border-white dark:border-slate-950`}
+          className={`absolute bottom-0 right-0 ${dotSizes[size]} rounded-full ${online ? 'bg-emerald-500' : 'bg-slate-400'} border-slate-50 dark:border-slate-950`}
           aria-label={online ? 'Online' : 'Offline'}
         />
       )}

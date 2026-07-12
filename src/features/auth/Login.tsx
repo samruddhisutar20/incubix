@@ -24,12 +24,7 @@ const roleConfig: Record<UserRole, { icon: React.ReactNode; accent: string; labe
   },
   mentor: {
     icon: <GraduationCap size={14} />,
-    accent: 'text-teal-500 bg-teal-50 dark:bg-teal-950/40 border-teal-200 dark:border-teal-900/60 hover:border-teal-400/60',
-    label: 'Cohort Mentor',
-  },
-}
-
-// ─── Demo Accounts Panel ──────────────────────────────────────────────────────
+    accent: 'text-teal-500 bg-teal-50 dark:bg-teal-950/40 b// ─── Demo Accounts Panel ──────────────────────────────────────────────────────
 interface DemoAccountCardProps {
   onAutofill: (email: string, password: string) => void
 }
@@ -44,12 +39,12 @@ const DemoAccountsPanel: React.FC<DemoAccountCardProps> = ({ onAutofill }) => {
   }
 
   return (
-    <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-900/30 p-4 flex flex-col gap-3">
+    <div className="rounded-xl border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-900/10 p-4 flex flex-col gap-3">
       <div className="flex items-center gap-2 mb-1">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+        <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-550 select-none">
           Demo Accounts
         </span>
-        <div className="flex-1 h-px bg-slate-200 dark:bg-slate-800" />
+        <div className="flex-1 h-px bg-slate-100 dark:bg-slate-900" />
       </div>
 
       {DEMO_ACCOUNTS.map((account) => {
@@ -57,57 +52,57 @@ const DemoAccountsPanel: React.FC<DemoAccountCardProps> = ({ onAutofill }) => {
         return (
           <div
             key={account.role}
-            className={`flex flex-col gap-2 p-3 rounded-lg border ${cfg.accent} transition-colors duration-200`}
+            className={`flex flex-col gap-2 p-3 rounded-lg border ${cfg.accent} transition-all duration-150`}
           >
             {/* Role badge + Use button */}
             <div className="flex items-center justify-between">
-              <span className={`flex items-center gap-1.5 text-[11px] font-bold ${cfg.accent.split(' ')[0]}`}>
+              <span className={`flex items-center gap-1.5 text-[10px] font-semibold tracking-wide ${cfg.accent.split(' ')[0]}`}>
                 {cfg.icon}
                 {cfg.label}
               </span>
               <button
                 type="button"
                 onClick={() => onAutofill(account.email, account.password)}
-                className="flex items-center gap-1 text-[10px] font-bold text-primary-600 dark:text-primary-400 hover:underline transition-all"
+                className="flex items-center gap-0.5 text-[9px] font-bold text-primary-600 dark:text-primary-400 hover:underline transition-all cursor-pointer"
               >
                 Use Account
-                <ChevronRight size={10} />
+                <ChevronRight size={9} />
               </button>
             </div>
 
             {/* Credentials grid */}
             <div className="grid grid-cols-1 gap-1.5">
               {/* Email */}
-              <div className="flex items-center justify-between gap-2 rounded-md px-2.5 py-1.5 bg-white/70 dark:bg-slate-950/50 border border-slate-200/60 dark:border-slate-800/60">
-                <span className="text-[10px] text-slate-400 dark:text-slate-500 w-12 shrink-0">Email</span>
-                <span className="text-[11px] font-mono font-semibold text-slate-700 dark:text-slate-300 flex-1 truncate">
+              <div className="flex items-center justify-between gap-2 rounded-md px-2.5 py-1.5 bg-white/60 dark:bg-slate-950/30 border border-slate-150/60 dark:border-slate-900/60">
+                <span className="text-[9px] text-slate-400 dark:text-slate-500 w-12 shrink-0">Email</span>
+                <span className="text-[10px] font-mono font-medium text-slate-700 dark:text-slate-350 flex-1 truncate">
                   {account.email}
                 </span>
                 <button
                   type="button"
                   onClick={() => handleCopy(account.email, `${account.role}-email`)}
-                  className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                  className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors cursor-pointer"
                 >
                   {copiedField === `${account.role}-email`
-                    ? <CheckCircle size={12} className="text-emerald-500" />
-                    : <Copy size={12} />}
+                    ? <CheckCircle size={11} className="text-emerald-500" />
+                    : <Copy size={11} />}
                 </button>
               </div>
 
               {/* Password */}
-              <div className="flex items-center justify-between gap-2 rounded-md px-2.5 py-1.5 bg-white/70 dark:bg-slate-950/50 border border-slate-200/60 dark:border-slate-800/60">
-                <span className="text-[10px] text-slate-400 dark:text-slate-500 w-12 shrink-0">Password</span>
-                <span className="text-[11px] font-mono font-semibold text-slate-700 dark:text-slate-300 flex-1">
+              <div className="flex items-center justify-between gap-2 rounded-md px-2.5 py-1.5 bg-white/60 dark:bg-slate-950/30 border border-slate-150/60 dark:border-slate-900/60">
+                <span className="text-[9px] text-slate-400 dark:text-slate-500 w-12 shrink-0">Password</span>
+                <span className="text-[10px] font-mono font-medium text-slate-700 dark:text-slate-350 flex-1">
                   {account.password}
                 </span>
                 <button
                   type="button"
                   onClick={() => handleCopy(account.password, `${account.role}-pass`)}
-                  className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                  className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors cursor-pointer"
                 >
                   {copiedField === `${account.role}-pass`
-                    ? <CheckCircle size={12} className="text-emerald-500" />
-                    : <Copy size={12} />}
+                    ? <CheckCircle size={11} className="text-emerald-500" />
+                    : <Copy size={11} />}
                 </button>
               </div>
             </div>
@@ -164,25 +159,25 @@ export const Login: React.FC = () => {
       <div className="w-full max-w-md flex flex-col gap-5 animate-in fade-in duration-300">
 
         {/* ── Brand ── */}
-        <div className="flex flex-col items-center gap-2 text-center">
-          <div className="p-3 rounded-xl bg-primary-600 text-white shadow-xl shadow-indigo-600/20">
-            <Terminal size={22} />
+        <div className="flex flex-col items-center gap-1.5 text-center select-none">
+          <div className="p-2.5 rounded-xl bg-primary-600 text-white shadow-lg shadow-indigo-600/15">
+            <Terminal size={18} />
           </div>
-          <h1 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1 mb-0">
+          <h1 className="text-lg font-bold tracking-tight text-slate-900 dark:text-white mt-1 mb-0">
             Incubix
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-slate-450 dark:text-slate-500 font-medium">
             Startup Incubation & Innovation Platform
           </p>
         </div>
 
         {/* ── Login Card ── */}
-        <div className="glass-card rounded-xl p-7 flex flex-col gap-5">
+        <div className="glass-card rounded-xl p-6 flex flex-col gap-5">
           <div className="text-center">
-            <h2 className="text-base font-bold text-slate-800 dark:text-white my-0">
+            <h2 className="text-sm font-semibold text-slate-900 dark:text-white tracking-tight my-0">
               Sign in to your workspace
             </h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5 font-medium">
               Use a demo account below or enter credentials manually.
             </p>
           </div>
@@ -192,11 +187,11 @@ export const Login: React.FC = () => {
 
           {/* ── Divider ── */}
           <div className="relative flex items-center gap-3">
-            <div className="flex-1 h-px bg-slate-200 dark:bg-slate-800" />
-            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">
+            <div className="flex-1 h-px bg-slate-100 dark:bg-slate-900" />
+            <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">
               Or sign in manually
             </span>
-            <div className="flex-1 h-px bg-slate-200 dark:bg-slate-800" />
+            <div className="flex-1 h-px bg-slate-100 dark:bg-slate-900" />
           </div>
 
           {/* ── Login Form ── */}
@@ -228,17 +223,17 @@ export const Login: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword((p) => !p)}
-                className="absolute right-3 top-[34px] text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                className="absolute right-3 top-[30px] text-slate-400 hover:text-slate-600 dark:hover:text-slate-350 transition-colors cursor-pointer"
                 tabIndex={-1}
               >
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
               </button>
             </div>
 
             {/* ── Error Banner ── */}
             {error && (
-              <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/60 text-red-600 dark:text-red-400 text-xs font-medium animate-in fade-in duration-200">
-                <AlertCircle size={15} className="shrink-0" />
+              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200/50 dark:border-red-900/40 text-red-600 dark:text-red-400 text-[11px] font-semibold animate-in fade-in duration-150">
+                <AlertCircle size={14} className="shrink-0 text-red-500" />
                 {error}
               </div>
             )}
@@ -247,12 +242,13 @@ export const Login: React.FC = () => {
             <Button
               type="submit"
               variant="primary"
-              className="w-full flex items-center justify-center gap-2 relative"
+              className="w-full flex items-center justify-center gap-1.5 relative mt-1"
               disabled={isLoading}
+              size="sm"
             >
               {isLoading ? (
                 <>
-                  <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <svg className="animate-spin h-3.5 w-3.5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                   </svg>
@@ -266,7 +262,7 @@ export const Login: React.FC = () => {
         </div>
 
         {/* ── Footer note ── */}
-        <p className="text-center text-[10px] text-slate-400 dark:text-slate-600">
+        <p className="text-center text-[9px] text-slate-400 dark:text-slate-600 select-none">
           MVP Demo · No real backend · Authentication via mock credentials
         </p>
       </div>

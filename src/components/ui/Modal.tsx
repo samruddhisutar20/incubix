@@ -44,10 +44,10 @@ export const Modal: React.FC<ModalProps> = ({
       />
       
       {/* Modal Box */}
-      <div className="relative w-full max-w-lg rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-2xl p-6 flex flex-col gap-4 animate-in fade-in zoom-in duration-200 text-left">
+      <div className="relative w-full max-w-lg rounded-xl bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-900 shadow-2xl p-6 flex flex-col gap-4 animate-in fade-in zoom-in duration-200 text-left">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-200/50 dark:border-slate-800/50 pb-3">
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+        <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-900/80 pb-3">
+          <h3 className="text-base font-semibold text-slate-900 dark:text-white tracking-tight">
             {title}
           </h3>
           <Button
@@ -56,18 +56,18 @@ export const Modal: React.FC<ModalProps> = ({
             onClick={onClose}
             className="p-1 rounded-md text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
           >
-            <X size={18} />
+            <X size={16} />
           </Button>
         </div>
         
         {/* Body */}
-        <div className="text-sm text-slate-600 dark:text-slate-300">
+        <div className="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
           {children}
         </div>
         
         {/* Footer */}
         {footerActions && (
-          <div className="flex items-center justify-end gap-3 border-t border-slate-200/50 dark:border-slate-800/50 pt-3">
+          <div className="flex items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-900/80 pt-3">
             {footerActions}
           </div>
         )}

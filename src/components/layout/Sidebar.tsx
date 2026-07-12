@@ -53,17 +53,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
       {/* Sidebar container */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 glass-panel border-r border-slate-200/50 dark:border-slate-800/50 flex flex-col transition-transform duration-300 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 glass-panel border-r border-slate-200/80 dark:border-slate-900/80 flex flex-col transition-transform duration-300 lg:static lg:translate-x-0 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Brand header */}
-        <div className="h-16 px-6 border-b border-slate-200/50 dark:border-slate-800/50 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <div className="h-14 px-6 border-b border-slate-200/80 dark:border-slate-900/80 flex items-center justify-between">
+          <div className="flex items-center gap-2 select-none">
             <div className="p-1.5 rounded-lg bg-primary-600 text-white shadow-md shadow-indigo-600/20">
-              <Terminal size={16} />
+              <Terminal size={14} />
             </div>
-            <span className="font-heading font-extrabold text-base text-slate-900 dark:text-white tracking-wide">
+            <span className="font-heading font-bold text-sm text-slate-900 dark:text-white tracking-wide">
               Incubix
             </span>
           </div>
@@ -73,12 +73,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             onClick={onClose}
             className="lg:hidden p-1.5 rounded-md"
           >
-            <X size={16} />
+            <X size={14} />
           </Button>
         </div>
 
         {/* Navigation links */}
-        <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+        <nav className="flex-1 px-4 py-5 space-y-1 overflow-y-auto">
           {currentLinks.map((link) => {
             const Icon = link.icon
             return (
@@ -87,14 +87,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 to={link.to}
                 onClick={onClose}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold tracking-wide uppercase transition-all duration-200 ${
+                  `flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-medium tracking-wider uppercase transition-all duration-150 ${
                     isActive
-                      ? 'bg-primary-600 text-white shadow-md shadow-indigo-600/15'
-                      : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/60 hover:text-slate-800 dark:hover:text-slate-200'
+                      ? 'bg-primary-600 text-white shadow-sm shadow-indigo-600/10'
+                      : 'text-slate-400 dark:text-slate-500 hover:bg-slate-100/60 dark:hover:bg-slate-900 hover:text-slate-800 dark:hover:text-slate-200'
                   }`
                 }
               >
-                <Icon size={15} />
+                <Icon size={14} />
                 <span>{link.label}</span>
               </NavLink>
             )
@@ -102,12 +102,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         </nav>
 
         {/* Footer info card */}
-        <div className="p-4 border-t border-slate-200/50 dark:border-slate-800/50">
-          <div className="bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-900/60 rounded-lg p-3 text-center">
-            <span className="text-[9px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-bold">
+        <div className="p-4 border-t border-slate-200/80 dark:border-slate-900/80">
+          <div className="bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-900/60 rounded-lg p-3 text-center select-none animate-in fade-in duration-300">
+            <span className="text-[9px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-semibold">
               Cohort 2026-B
             </span>
-            <p className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold mt-1">
+            <p className="text-[10px] text-slate-600 dark:text-slate-400 font-medium mt-0.5">
               Main Campus Center
             </p>
           </div>

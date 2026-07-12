@@ -102,18 +102,20 @@ export const Card: React.FC<CardProps> = ({
 }) => (
   <div className={`glass-card rounded-xl ${noPadding ? '' : 'p-5'} ${className}`} {...props}>
     {(title || headerActions) && (
-      <div className={`flex items-start justify-between gap-3 ${noPadding ? 'px-5 pt-5' : ''} ${children ? 'pb-4 border-b border-slate-100 dark:border-slate-800/80 mb-4' : ''}`}>
+      <div className={`flex items-start justify-between gap-3 ${noPadding ? 'px-5 pt-5' : ''} ${children ? 'pb-3.5 border-b border-slate-100 dark:border-slate-900/80 mb-4' : ''}`}>
         <div>
           {title && (
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white leading-none">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-white leading-none tracking-tight">
               {title}
             </h3>
           )}
           {subtitle && (
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{subtitle}</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5 font-medium leading-normal">
+              {subtitle}
+            </p>
           )}
         </div>
-        {headerActions && <div className="shrink-0 flex items-center gap-2">{headerActions}</div>}
+        {headerActions && <div className="shrink-0 flex items-center gap-1.5">{headerActions}</div>}
       </div>
     )}
     <div className={noPadding && (title || headerActions) ? 'px-5 pb-5' : ''}>
