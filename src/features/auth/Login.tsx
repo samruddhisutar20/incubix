@@ -5,134 +5,159 @@ import type { UserRole } from '@/store/authStore'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import {
-  Terminal, Shield, Rocket, GraduationCap,
-  Eye, EyeOff, Copy, CheckCircle, AlertCircle,
+  Terminal,
+  Shield,
+  Rocket,
+  GraduationCap,
+  Eye,
+  EyeOff,
+  Copy,
+  CheckCircle,
+  AlertCircle,
   ChevronRight,
 } from 'lucide-react'
 
-// ─── Role icon & colour config ────────────────────────────────────────────────
 const roleConfig: Record<UserRole, { icon: React.ReactNode; accent: string; label: string }> = {
   admin: {
     icon: <Shield size={14} />,
-    accent: 'text-violet-500 bg-violet-50 dark:bg-violet-950/40 border-violet-200 dark:border-violet-900/60 hover:border-violet-400/60',
+    accent:
+      'text-violet-600 bg-violet-50/80 border-violet-200 dark:bg-violet-950/40 dark:border-violet-900/70',
     label: 'Incubator Admin',
   },
   founder: {
     icon: <Rocket size={14} />,
-    accent: 'text-indigo-500 bg-indigo-50 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-900/60 hover:border-indigo-400/60',
+    accent:
+      'text-indigo-600 bg-indigo-50/80 border-indigo-200 dark:bg-indigo-950/40 dark:border-indigo-900/70',
     label: 'Startup Founder',
   },
   mentor: {
     icon: <GraduationCap size={14} />,
-    accent: 'text-teal-500 bg-teal-50 dark:bg-teal-950/40 b// ─── Demo Accounts Panel ──────────────────────────────────────────────────────
-interface DemoAccountCardProps {
+    accent:
+      'text-teal-600 bg-teal-50/80 border-teal-200 dark:bg-teal-950/40 dark:border-teal-900/70',
+    label: 'Mentor',
+  },
+}
+
+interface DemoAccountsPanelProps {
   onAutofill: (email: string, password: string) => void
 }
 
-const DemoAccountsPanel: React.FC<DemoAccountCardProps> = ({ onAutofill }) => {
+const DemoAccountsPanel: React.FC<DemoAccountsPanelProps> = ({ onAutofill }) => {
   const [copiedField, setCopiedField] = useState<string | null>(null)
 
-  const handleCopy = (value: string, key: string) => {
-    navigator.clipboard.writeText(value)
-    setCopiedField(key)
-    setTimeout(() => setCopiedField(null), 1500)
+  const handleCopy = async (value: string, key: string) => {
+    try {
+      await navigator.clipboard.writeText(value)
+      setCopiedField(key)
+      window.setTimeout(() => setCopiedField(null), 1500)
+    } catch {
+      setCopiedField(null)
+    }
   }
 
   return (
-    <div className="rounded-xl border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-900/10 p-4 flex flex-col gap-3">
-      <div className="flex items-center gap-2 mb-1">
-        <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-550 select-none">
+    <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/70 p-4 dark:border-slate-800 dark:bg-slate-900/20">
+      <div className="mb-3 flex items-center gap-2">
+        <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
           Demo Accounts
         </span>
-        <div className="flex-1 h-px bg-slate-100 dark:bg-slate-900" />
+        <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
       </div>
 
-      {DEMO_ACCOUNTS.map((account) => {
-        const cfg = roleConfig[account.role]
-        return (
-          <div
-            key={account.role}
-            className={`flex flex-col gap-2 p-3 rounded-lg border ${cfg.accent} transition-all duration-150`}
-          >
-            {/* Role badge + Use button */}
-            <div className="flex items-center justify-between">
-              <span className={`flex items-center gap-1.5 text-[10px] font-semibold tracking-wide ${cfg.accent.split(' ')[0]}`}>
-                {cfg.icon}
-                {cfg.label}
-              </span>
-              <button
-                type="button"
-                onClick={() => onAutofill(account.email, account.password)}
-                className="flex items-center gap-0.5 text-[9px] font-bold text-primary-600 dark:text-primary-400 hover:underline transition-all cursor-pointer"
-              >
-                Use Account
-                <ChevronRight size={9} />
-              </button>
-            </div>
+      <div className="flex flex-col gap-2.5">
+        {DEMO_ACCOUNTS.map((account) => {
+          const config = roleConfig[account.role]
+          const emailKey = `${account.role}-email`
+          const passKey = `${account.role}-password`
 
-            {/* Credentials grid */}
-            <div className="grid grid-cols-1 gap-1.5">
-              {/* Email */}
-              <div className="flex items-center justify-between gap-2 rounded-md px-2.5 py-1.5 bg-white/60 dark:bg-slate-950/30 border border-slate-150/60 dark:border-slate-900/60">
-                <span className="text-[9px] text-slate-400 dark:text-slate-500 w-12 shrink-0">Email</span>
-                <span className="text-[10px] font-mono font-medium text-slate-700 dark:text-slate-350 flex-1 truncate">
-                  {account.email}
+          return (
+            <div
+              key={account.role}
+              className={`rounded-lg border p-3 ${config.accent} transition-all duration-150`}
+            >
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em]">
+                  {config.icon}
+                  {config.label}
                 </span>
                 <button
                   type="button"
-                  onClick={() => handleCopy(account.email, `${account.role}-email`)}
-                  className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors cursor-pointer"
+                  onClick={() => onAutofill(account.email, account.password)}
+                  className="flex items-center gap-1 text-[10px] font-semibold text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
                 >
-                  {copiedField === `${account.role}-email`
-                    ? <CheckCircle size={11} className="text-emerald-500" />
-                    : <Copy size={11} />}
+                  Use Account
+                  <ChevronRight size={12} />
                 </button>
               </div>
 
-              {/* Password */}
-              <div className="flex items-center justify-between gap-2 rounded-md px-2.5 py-1.5 bg-white/60 dark:bg-slate-950/30 border border-slate-150/60 dark:border-slate-900/60">
-                <span className="text-[9px] text-slate-400 dark:text-slate-500 w-12 shrink-0">Password</span>
-                <span className="text-[10px] font-mono font-medium text-slate-700 dark:text-slate-350 flex-1">
-                  {account.password}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => handleCopy(account.password, `${account.role}-pass`)}
-                  className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors cursor-pointer"
-                >
-                  {copiedField === `${account.role}-pass`
-                    ? <CheckCircle size={11} className="text-emerald-500" />
-                    : <Copy size={11} />}
-                </button>
+              <div className="flex flex-col gap-1.5">
+                <div className="flex items-center justify-between gap-2 rounded-md border border-white/70 bg-white/70 px-2.5 py-1.5 dark:border-slate-900/70 dark:bg-slate-950/40">
+                  <span className="w-12 shrink-0 text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400 dark:text-slate-500">
+                    Email
+                  </span>
+                  <span className="flex-1 truncate text-[10px] font-mono font-medium text-slate-700 dark:text-slate-300">
+                    {account.email}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(account.email, emailKey)}
+                    className="text-slate-400 transition-colors hover:text-slate-600 dark:hover:text-slate-300"
+                    aria-label={`Copy ${account.email}`}
+                  >
+                    {copiedField === emailKey ? (
+                      <CheckCircle size={12} className="text-emerald-500" />
+                    ) : (
+                      <Copy size={12} />
+                    )}
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between gap-2 rounded-md border border-white/70 bg-white/70 px-2.5 py-1.5 dark:border-slate-900/70 dark:bg-slate-950/40">
+                  <span className="w-12 shrink-0 text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400 dark:text-slate-500">
+                    Pass
+                  </span>
+                  <span className="flex-1 truncate text-[10px] font-mono font-medium text-slate-700 dark:text-slate-300">
+                    {account.password}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(account.password, passKey)}
+                    className="text-slate-400 transition-colors hover:text-slate-600 dark:hover:text-slate-300"
+                    aria-label={`Copy password for ${account.role}`}
+                  >
+                    {copiedField === passKey ? (
+                      <CheckCircle size={12} className="text-emerald-500" />
+                    ) : (
+                      <Copy size={12} />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        )
-      })}
+          )
+        })}
+      </div>
     </div>
   )
 }
 
-// ─── Login Page ───────────────────────────────────────────────────────────────
 export const Login: React.FC = () => {
   const navigate = useNavigate()
-  const { loginWithCredentials } = useAuthStore()
+  const { loginWithCredentials, isLoading } = useAuthStore()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
 
-  // Autofill from Demo Accounts panel
   const handleAutofill = (demoEmail: string, demoPassword: string) => {
     setEmail(demoEmail)
     setPassword(demoPassword)
     setError(null)
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
     setError(null)
 
     if (!email.trim() || !password) {
@@ -140,131 +165,154 @@ export const Login: React.FC = () => {
       return
     }
 
-    setIsLoading(true)
     const result = await loginWithCredentials(email, password)
-    setIsLoading(false)
 
     if (!result.success) {
       setError(result.error ?? 'Login failed. Please try again.')
       return
     }
 
-    // Redirect based on the role stored in authStore after successful login
     const role = useAuthStore.getState().user?.role
-    if (role) navigate(`/${role}/dashboard`)
+    if (role) {
+      navigate(`/${role}/dashboard`)
+    }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50 dark:bg-slate-950">
-      <div className="w-full max-w-md flex flex-col gap-5 animate-in fade-in duration-300">
-
-        {/* ── Brand ── */}
-        <div className="flex flex-col items-center gap-1.5 text-center select-none">
-          <div className="p-2.5 rounded-xl bg-primary-600 text-white shadow-lg shadow-indigo-600/15">
-            <Terminal size={18} />
+    <div className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900 dark:bg-slate-950 dark:text-white sm:px-6 lg:px-8">
+      <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-2 text-center">
+          <div className="rounded-2xl bg-primary-600 p-3 text-white shadow-lg shadow-primary-600/20">
+            <Terminal size={20} />
           </div>
-          <h1 className="text-lg font-bold tracking-tight text-slate-900 dark:text-white mt-1 mb-0">
-            Incubix
-          </h1>
-          <p className="text-xs text-slate-450 dark:text-slate-500 font-medium">
-            Startup Incubation & Innovation Platform
-          </p>
-        </div>
-
-        {/* ── Login Card ── */}
-        <div className="glass-card rounded-xl p-6 flex flex-col gap-5">
-          <div className="text-center">
-            <h2 className="text-sm font-semibold text-slate-900 dark:text-white tracking-tight my-0">
-              Sign in to your workspace
-            </h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1.5 font-medium">
-              Use a demo account below or enter credentials manually.
+          <div>
+            <h1 className="text-2xl font-semibold tracking-tight">Incubix</h1>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              Startup incubation and innovation platform
             </p>
           </div>
+        </div>
 
-          {/* ── Demo Accounts Panel ── */}
-          <DemoAccountsPanel onAutofill={handleAutofill} />
+        <div className="grid w-full max-w-4xl gap-6 rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-[0_20px_60px_-20px_rgba(15,23,42,0.25)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/80 lg:grid-cols-[1.05fr_0.95fr] lg:p-8">
+          <div className="flex flex-col justify-between gap-6 rounded-2xl border border-slate-200 bg-slate-50/80 p-5 dark:border-slate-800 dark:bg-slate-950/40">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary-600 dark:border-primary-900/60 dark:bg-primary-950/40 dark:text-primary-400">
+                <Shield size={12} />
+                Secure workspace access
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight">Welcome back</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                  Sign in with a demo account to explore the admin, founder, or mentor experience. Everything is mocked for fast onboarding.
+                </p>
+              </div>
+            </div>
 
-          {/* ── Divider ── */}
-          <div className="relative flex items-center gap-3">
-            <div className="flex-1 h-px bg-slate-100 dark:bg-slate-900" />
-            <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">
-              Or sign in manually
-            </span>
-            <div className="flex-1 h-px bg-slate-100 dark:bg-slate-900" />
+            <div className="space-y-3 rounded-2xl border border-slate-200 bg-white/80 p-4 dark:border-slate-800 dark:bg-slate-950/40">
+              <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                <Terminal size={16} className="text-primary-500" />
+                Demo-ready experience
+              </div>
+              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                <li className="flex items-start gap-2">
+                  <CheckCircle size={14} className="mt-0.5 shrink-0 text-emerald-500" />
+                  Fast account switching and autofill
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle size={14} className="mt-0.5 shrink-0 text-emerald-500" />
+                  Clear validation with inline error feedback
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle size={14} className="mt-0.5 shrink-0 text-emerald-500" />
+                  Role-based redirect after authentication
+                </li>
+              </ul>
+            </div>
           </div>
 
-          {/* ── Login Form ── */}
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
-            <Input
-              label="Email Address"
-              id="login-email"
-              type="email"
-              placeholder="name@incubix.com"
-              value={email}
-              onChange={(e) => { setEmail(e.target.value); setError(null) }}
-              autoComplete="email"
-              disabled={isLoading}
-            />
+          <div className="flex flex-col gap-5">
+            <div className="text-center lg:text-left">
+              <h3 className="text-lg font-semibold tracking-tight">Sign in to your workspace</h3>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                Pick a demo account or enter credentials manually.
+              </p>
+            </div>
 
-            {/* Password with show/hide toggle */}
-            <div className="relative">
+            <DemoAccountsPanel onAutofill={handleAutofill} />
+
+            <div className="relative flex items-center gap-3">
+              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+                Or sign in manually
+              </span>
+              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
+            </div>
+
+            <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
+              <Input
+                label="Email Address"
+                id="login-email"
+                type="email"
+                placeholder="name@incubix.com"
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.target.value)
+                  setError(null)
+                }}
+                autoComplete="email"
+                disabled={isLoading}
+              />
+
               <Input
                 label="Password"
                 id="login-password"
                 type={showPassword ? 'text' : 'password'}
                 placeholder="••••••••"
                 value={password}
-                onChange={(e) => { setPassword(e.target.value); setError(null) }}
+                onChange={(event) => {
+                  setPassword(event.target.value)
+                  setError(null)
+                }}
                 autoComplete="current-password"
                 disabled={isLoading}
-                className="pr-10"
+                rightAddon={
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((value) => !value)}
+                    className="text-slate-400 transition-colors hover:text-slate-600 dark:hover:text-slate-300"
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+                  </button>
+                }
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword((p) => !p)}
-                className="absolute right-3 top-[30px] text-slate-400 hover:text-slate-600 dark:hover:text-slate-350 transition-colors cursor-pointer"
-                tabIndex={-1}
-              >
-                {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
-              </button>
-            </div>
 
-            {/* ── Error Banner ── */}
-            {error && (
-              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200/50 dark:border-red-900/40 text-red-600 dark:text-red-400 text-[11px] font-semibold animate-in fade-in duration-150">
-                <AlertCircle size={14} className="shrink-0 text-red-500" />
-                {error}
-              </div>
-            )}
+              {error ? (
+                <div className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[11px] font-semibold text-red-600 dark:border-red-900/60 dark:bg-red-950/20 dark:text-red-400">
+                  <AlertCircle size={14} className="shrink-0" />
+                  {error}
+                </div>
+              ) : null}
 
-            {/* ── Submit ── */}
-            <Button
-              type="submit"
-              variant="primary"
-              className="w-full flex items-center justify-center gap-1.5 relative mt-1"
-              disabled={isLoading}
-              size="sm"
-            >
-              {isLoading ? (
-                <>
-                  <svg className="animate-spin h-3.5 w-3.5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
-                  </svg>
-                  Authenticating…
-                </>
-              ) : (
-                'Sign In'
-              )}
-            </Button>
-          </form>
+              <Button type="submit" variant="primary" size="sm" className="w-full" disabled={isLoading}>
+                {isLoading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="h-3.5 w-3.5 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                    </svg>
+                    Authenticating...
+                  </span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    Sign In
+                    <ChevronRight size={14} />
+                  </span>
+                )}
+              </Button>
+            </form>
+          </div>
         </div>
-
-        {/* ── Footer note ── */}
-        <p className="text-center text-[9px] text-slate-400 dark:text-slate-600 select-none">
-          MVP Demo · No real backend · Authentication via mock credentials
-        </p>
       </div>
     </div>
   )
