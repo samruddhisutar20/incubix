@@ -15,13 +15,13 @@ export const DashboardLayout: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         {/* Header */}
         <Header onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
 
         {/* Dynamic Nested Route Content */}
-        <main className="flex-1 overflow-y-auto p-6 bg-slate-50/10 dark:bg-slate-950/5">
-          <div className="max-w-7xl mx-auto animate-in fade-in duration-300">
+        <main className="flex-1 overflow-y-auto px-4 py-5 sm:px-6 lg:px-8 lg:py-7">
+          <div className="mx-auto max-w-7xl animate-in fade-in duration-300">
             <Outlet />
           </div>
         </main>

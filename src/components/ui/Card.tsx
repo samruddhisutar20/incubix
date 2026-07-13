@@ -33,13 +33,13 @@ export const StatCard: React.FC<StatCardProps> = ({
 
   return (
     <div
-      className={`glass-card rounded-xl p-5 flex flex-col gap-4 group cursor-default ${className}`}
+      className={`surface-card group flex cursor-default flex-col gap-5 rounded-2xl p-5 ${className}`}
     >
       <div className="flex items-start justify-between">
         <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
           {title}
         </p>
-        <div className={`p-2.5 rounded-lg ${iconBg} transition-transform duration-300 group-hover:scale-110`}>
+        <div className={`rounded-xl p-2.5 transition-transform duration-300 group-hover:scale-105 ${iconBg}`}>
           {icon}
         </div>
       </div>
@@ -74,7 +74,7 @@ interface SectionHeaderProps {
 export const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, action }) => (
   <div className="flex items-start justify-between gap-4">
     <div>
-      <h3 className="text-base font-bold text-slate-900 dark:text-white">{title}</h3>
+      <h3 className="text-base font-semibold tracking-tight text-slate-900 dark:text-white">{title}</h3>
       {subtitle && (
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{subtitle}</p>
       )}
@@ -100,12 +100,12 @@ export const Card: React.FC<CardProps> = ({
   className = '',
   ...props
 }) => (
-  <div className={`glass-card rounded-xl ${noPadding ? '' : 'p-5'} ${className}`} {...props}>
+  <div className={`surface-card rounded-2xl ${noPadding ? '' : 'p-5'} ${className}`} {...props}>
     {(title || headerActions) && (
       <div className={`flex items-start justify-between gap-3 ${noPadding ? 'px-5 pt-5' : ''} ${children ? 'pb-3.5 border-b border-slate-100 dark:border-slate-900/80 mb-4' : ''}`}>
         <div>
           {title && (
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-white leading-none tracking-tight">
+            <h3 className="text-base font-semibold text-slate-900 dark:text-white leading-none tracking-tight">
               {title}
             </h3>
           )}

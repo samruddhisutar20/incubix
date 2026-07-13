@@ -1,5 +1,5 @@
 import React from 'react'
-import { Terminal } from 'lucide-react'
+import { Sparkles, Terminal } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { useNavigate } from 'react-router-dom'
 
@@ -17,23 +17,24 @@ export const StubPage: React.FC<StubPageProps> = ({
   const navigate = useNavigate()
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center gap-5 px-4 animate-in fade-in duration-300">
+    <div className="flex min-h-[68vh] flex-col items-center justify-center gap-5 px-4 text-center animate-in fade-in duration-300">
       {/* Icon */}
-      <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-900/60">
+      <div className="relative rounded-3xl border border-primary-100 bg-primary-50 p-5 text-primary-600 shadow-sm dark:border-primary-500/15 dark:bg-primary-500/10 dark:text-primary-300">
         <Terminal size={24} className="text-primary-500" />
+        <Sparkles size={14} className="absolute -right-1 -top-1 text-amber-400" />
       </div>
 
       {/* Badge */}
-      <span className="px-2.5 py-0.5 rounded text-[9px] font-semibold uppercase tracking-wider border border-amber-200 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/20 text-amber-600 dark:text-amber-400">
+      <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-amber-700 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-400">
         {phase}
       </span>
 
       {/* Text */}
-      <div className="flex flex-col gap-1.5 max-w-sm">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-white my-0 tracking-tight">
+      <div className="flex max-w-md flex-col gap-2">
+        <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
           {title}
         </h2>
-        <p className="text-xs text-slate-400 dark:text-slate-400 leading-relaxed">
+        <p className="text-sm leading-6 text-slate-500 dark:text-slate-400">
           {description}
         </p>
       </div>

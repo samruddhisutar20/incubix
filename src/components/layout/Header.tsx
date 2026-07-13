@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useTheme } from '@/context/ThemeContext'
 import { useAuthStore } from '@/store/authStore'
-import { Sun, Moon, Menu, LogOut, User, ChevronDown } from 'lucide-react'
+import { Sun, Moon, Menu, LogOut, User, ChevronDown, Command } from 'lucide-react'
 import { Button } from '../ui/Button'
 
 interface HeaderProps {
@@ -14,7 +14,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 w-full glass-panel h-14 px-6 flex items-center justify-between border-b border-slate-200/80 dark:border-slate-900/80">
+    <header className="sticky top-0 z-40 flex h-[72px] w-full items-center justify-between border-b border-slate-200/80 bg-white/80 px-4 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/80 sm:px-6 lg:px-8">
       {/* Left side: Hamburger on mobile, page title / branding */}
       <div className="flex items-center gap-3">
         <Button
@@ -25,24 +25,28 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
         >
           <Menu size={16} />
         </Button>
-        <div>
-          <h2 className="text-sm font-semibold tracking-tight text-slate-900 dark:text-white my-0 flex items-center gap-2">
-            Incubix 
-            <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-primary-100 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 uppercase tracking-wider select-none">
-              {user?.role}
-            </span>
+        <div className="hidden sm:block">
+          <p className="text-xs font-medium text-slate-400">Workspace</p>
+          <h2 className="flex items-center gap-2 text-base font-semibold tracking-tight text-slate-900 dark:text-white">
+            {user?.startupName || 'Incubix'}
+            <span className="rounded-full bg-primary-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary-600 dark:bg-primary-500/10 dark:text-primary-300">{user?.role}</span>
           </h2>
         </div>
       </div>
 
       {/* Right side: Tools & Profile */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3">
+        <div className="hidden items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-400 dark:border-slate-800 dark:bg-slate-900 lg:flex">
+          <Command size={14} />
+          <span>Quick search</span>
+          <kbd className="ml-4 rounded border border-slate-200 bg-white px-1.5 py-0.5 text-[10px] dark:border-slate-700 dark:bg-slate-800">⌘ K</kbd>
+        </div>
         {/* Dark/Light mode toggle */}
         <Button
           variant="ghost"
           size="sm"
           onClick={toggleTheme}
-          className="p-1.5 rounded-md"
+          className="h-9 w-9 p-0"
           title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
         >
           {theme === 'light' ? <Moon size={15} /> : <Sun size={15} />}
@@ -52,9 +56,9 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
         <div className="relative">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center gap-2 px-2.5 py-1 rounded-lg border border-transparent hover:border-slate-200/80 dark:hover:border-slate-800/80 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-all duration-150 focus:outline-none cursor-pointer"
+            className="flex cursor-pointer items-center gap-2 rounded-xl border border-transparent px-2 py-1.5 transition-all duration-150 hover:border-slate-200 hover:bg-slate-50 focus:outline-none dark:hover:border-slate-800 dark:hover:bg-slate-900"
           >
-            <div className="w-6.5 h-6.5 rounded-full bg-gradient-to-tr from-primary-600 to-secondary-500 flex items-center justify-center text-white text-[10px] font-semibold shadow-sm select-none">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-tr from-primary-600 to-secondary-500 text-[10px] font-semibold text-white shadow-sm select-none">
               {user?.avatarInitials ?? user?.name.charAt(0)}
             </div>
             <div className="hidden sm:flex flex-col text-left">
@@ -75,7 +79,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
                 className="fixed inset-0 z-10"
                 onClick={() => setIsDropdownOpen(false)}
               />
-              <div className="absolute right-0 mt-2 w-48 rounded-lg bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-900/80 shadow-2xl py-1.5 z-20 animate-in fade-in slide-in-from-top-2 duration-150 text-left">
+              <div className="absolute right-0 z-20 mt-2 w-56 animate-in fade-in slide-in-from-top-2 rounded-2xl border border-slate-200 bg-white py-1.5 text-left shadow-xl dark:border-slate-800 dark:bg-slate-950">
                 <div className="px-3.5 py-1.5 border-b border-slate-50 dark:border-slate-900/80 text-[10px] font-medium text-slate-400 dark:text-slate-500 truncate">
                   {user?.email}
                 </div>

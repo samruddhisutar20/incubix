@@ -5,7 +5,6 @@ import type { UserRole } from '@/store/authStore'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import {
-  Terminal,
   Shield,
   Rocket,
   GraduationCap,
@@ -21,19 +20,19 @@ const roleConfig: Record<UserRole, { icon: React.ReactNode; accent: string; labe
   admin: {
     icon: <Shield size={14} />,
     accent:
-      'text-violet-600 bg-violet-50/80 border-violet-200 dark:bg-violet-950/40 dark:border-violet-900/70',
+      'text-violet-200 bg-violet-500/10 border-violet-500/20 dark:bg-violet-500/10 dark:border-violet-500/30',
     label: 'Incubator Admin',
   },
   founder: {
     icon: <Rocket size={14} />,
     accent:
-      'text-indigo-600 bg-indigo-50/80 border-indigo-200 dark:bg-indigo-950/40 dark:border-indigo-900/70',
+      'text-indigo-200 bg-indigo-500/10 border-indigo-500/20 dark:bg-indigo-500/10 dark:border-indigo-500/30',
     label: 'Startup Founder',
   },
   mentor: {
     icon: <GraduationCap size={14} />,
     accent:
-      'text-teal-600 bg-teal-50/80 border-teal-200 dark:bg-teal-950/40 dark:border-teal-900/70',
+      'text-teal-200 bg-teal-500/10 border-teal-500/20 dark:bg-teal-500/10 dark:border-teal-500/30',
     label: 'Mentor',
   },
 }
@@ -179,138 +178,155 @@ export const Login: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900 dark:bg-slate-950 dark:text-white sm:px-6 lg:px-8">
-      <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-6">
-        <div className="flex flex-col items-center gap-2 text-center">
-          <div className="rounded-2xl bg-primary-600 p-3 text-white shadow-lg shadow-primary-600/20">
-            <Terminal size={20} />
-          </div>
-          <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Incubix</h1>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              Startup incubation and innovation platform
-            </p>
-          </div>
-        </div>
+    <div className="min-h-screen bg-slate-950 px-6 py-10 text-slate-100 sm:px-8 lg:px-10">
+      <div className="mx-auto flex w-full max-w-[1280px] items-center justify-center">
+        <div className="w-full max-w-[1100px] animate-[fadeIn_0.45s_ease-out]">
+          <div className="grid gap-6 rounded-[2rem] border border-slate-800/70 bg-slate-950/95 p-6 shadow-[0_45px_130px_-40px_rgba(0,0,0,0.72)] backdrop-blur-xl lg:grid-cols-2 lg:p-8">
+            <div className="relative flex min-h-[760px] flex-col justify-between overflow-hidden rounded-[2rem] border border-slate-800/80 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900/95 p-8 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]">
+              <div className="pointer-events-none absolute -right-16 top-16 h-44 w-44 rounded-full bg-violet-500/15 blur-3xl" />
+              <div className="pointer-events-none absolute left-0 top-24 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
+              <div className="pointer-events-none absolute right-0 bottom-10 h-48 w-48 rounded-full bg-fuchsia-500/10 blur-3xl" />
 
-        <div className="grid w-full max-w-4xl gap-6 rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-[0_20px_60px_-20px_rgba(15,23,42,0.25)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/80 lg:grid-cols-[1.05fr_0.95fr] lg:p-8">
-          <div className="flex flex-col justify-between gap-6 rounded-2xl border border-slate-200 bg-slate-50/80 p-5 dark:border-slate-800 dark:bg-slate-950/40">
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary-600 dark:border-primary-900/60 dark:bg-primary-950/40 dark:text-primary-400">
-                <Shield size={12} />
-                Secure workspace access
+              <div className="relative z-10 flex flex-col gap-6">
+                <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-violet-200">
+                  <Shield size={14} />
+                  Secure workspace access
+                </div>
+                <div className="space-y-5">
+                  <h1 className="max-w-xl text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+                    Welcome back to Incubix.
+                  </h1>
+                  <p className="max-w-lg text-lg leading-8 text-slate-300">
+                    A modern incubator workspace built for founders, mentors, and administrators. Fast access, clear insights, and a polished onboarding experience.
+                  </p>
+                </div>
+
+                <div className="grid gap-4">
+                  <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 shadow-[0_24px_70px_-46px_rgba(99,102,241,0.35)] transition-transform duration-200 hover:-translate-y-1">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-violet-500/10 text-violet-200">
+                          <Rocket size={20} />
+                        </div>
+                        <div>
+                          <h2 className="text-lg font-semibold text-white">Launch faster</h2>
+                          <p className="mt-1 text-sm leading-6 text-slate-400">Get into the product with demo-ready accounts and instant previews.</p>
+                        </div>
+                      </div>
+                      <span className="rounded-full bg-slate-800/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-300">
+                        Demo
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 shadow-[0_24px_70px_-46px_rgba(99,102,241,0.28)] transition-transform duration-200 hover:-translate-y-1">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200">
+                        <Shield size={20} />
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-semibold text-white">Secure by design</h2>
+                        <p className="mt-1 text-sm leading-6 text-slate-400">Role-based access and polished sign-in flows for every team member.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 shadow-[0_24px_70px_-46px_rgba(99,102,241,0.28)] transition-transform duration-200 hover:-translate-y-1">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-200">
+                        <CheckCircle size={20} />
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-semibold text-white">Instant clarity</h2>
+                        <p className="mt-1 text-sm leading-6 text-slate-400">A refined dashboard-ready UI with clear priorities and fast entry points.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h2 className="text-xl font-semibold tracking-tight">Welcome back</h2>
-                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                  Sign in with a demo account to explore the admin, founder, or mentor experience. Everything is mocked for fast onboarding.
+            </div>
+
+            <div className="relative flex flex-col justify-center gap-8 rounded-[2rem] border border-slate-800/70 bg-slate-950/95 p-8 shadow-[0_22px_72px_-28px_rgba(0,0,0,0.68)] lg:p-10">
+              <div className="space-y-4 text-center lg:text-left">
+                <p className="text-sm uppercase tracking-[0.32em] text-slate-500">Secure access</p>
+                <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Sign in to your workspace</h2>
+                <p className="max-w-md text-base leading-8 text-slate-400">
+                  Choose a demo account or enter your credentials manually to unlock the Incubix experience.
                 </p>
               </div>
-            </div>
 
-            <div className="space-y-3 rounded-2xl border border-slate-200 bg-white/80 p-4 dark:border-slate-800 dark:bg-slate-950/40">
-              <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
-                <Terminal size={16} className="text-primary-500" />
-                Demo-ready experience
+              <DemoAccountsPanel onAutofill={handleAutofill} />
+
+              <div className="relative flex items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-slate-500">
+                <div className="h-px flex-1 bg-slate-800/90" />
+                <span>Or sign in manually</span>
+                <div className="h-px flex-1 bg-slate-800/90" />
               </div>
-              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-                <li className="flex items-start gap-2">
-                  <CheckCircle size={14} className="mt-0.5 shrink-0 text-emerald-500" />
-                  Fast account switching and autofill
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle size={14} className="mt-0.5 shrink-0 text-emerald-500" />
-                  Clear validation with inline error feedback
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle size={14} className="mt-0.5 shrink-0 text-emerald-500" />
-                  Role-based redirect after authentication
-                </li>
-              </ul>
+
+              <form className="flex flex-col gap-5" onSubmit={handleSubmit} noValidate>
+                <Input
+                  label="Email Address"
+                  id="login-email"
+                  type="email"
+                  placeholder="name@incubix.com"
+                  value={email}
+                  onChange={(event) => {
+                    setEmail(event.target.value)
+                    setError(null)
+                  }}
+                  autoComplete="email"
+                  disabled={isLoading}
+                />
+
+                <Input
+                  label="Password"
+                  id="login-password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value)
+                    setError(null)
+                  }}
+                  autoComplete="current-password"
+                  disabled={isLoading}
+                  rightAddon={
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((value) => !value)}
+                      className="text-slate-400 transition-colors hover:text-primary-600 dark:hover:text-primary-300"
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  }
+                />
+
+                {error ? (
+                  <div className="flex items-center gap-3 rounded-2xl border border-red-500/20 bg-red-500/10 px-4 py-4 text-sm font-semibold text-red-200">
+                    <AlertCircle size={18} className="shrink-0 text-red-300" />
+                    {error}
+                  </div>
+                ) : null}
+
+                <Button type="submit" variant="primary" size="md" className="w-full" disabled={isLoading}>
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-3">
+                      <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                      </svg>
+                      Authenticating...
+                    </span>
+                  ) : (
+                    <span className="flex items-center justify-center gap-3">
+                      Sign In
+                      <ChevronRight size={18} />
+                    </span>
+                  )}
+                </Button>
+              </form>
             </div>
-          </div>
-
-          <div className="flex flex-col gap-5">
-            <div className="text-center lg:text-left">
-              <h3 className="text-lg font-semibold tracking-tight">Sign in to your workspace</h3>
-              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                Pick a demo account or enter credentials manually.
-              </p>
-            </div>
-
-            <DemoAccountsPanel onAutofill={handleAutofill} />
-
-            <div className="relative flex items-center gap-3">
-              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
-                Or sign in manually
-              </span>
-              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
-            </div>
-
-            <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
-              <Input
-                label="Email Address"
-                id="login-email"
-                type="email"
-                placeholder="name@incubix.com"
-                value={email}
-                onChange={(event) => {
-                  setEmail(event.target.value)
-                  setError(null)
-                }}
-                autoComplete="email"
-                disabled={isLoading}
-              />
-
-              <Input
-                label="Password"
-                id="login-password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="••••••••"
-                value={password}
-                onChange={(event) => {
-                  setPassword(event.target.value)
-                  setError(null)
-                }}
-                autoComplete="current-password"
-                disabled={isLoading}
-                rightAddon={
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword((value) => !value)}
-                    className="text-slate-400 transition-colors hover:text-slate-600 dark:hover:text-slate-300"
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
-                  >
-                    {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
-                  </button>
-                }
-              />
-
-              {error ? (
-                <div className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[11px] font-semibold text-red-600 dark:border-red-900/60 dark:bg-red-950/20 dark:text-red-400">
-                  <AlertCircle size={14} className="shrink-0" />
-                  {error}
-                </div>
-              ) : null}
-
-              <Button type="submit" variant="primary" size="sm" className="w-full" disabled={isLoading}>
-                {isLoading ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <svg className="h-3.5 w-3.5 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
-                    </svg>
-                    Authenticating...
-                  </span>
-                ) : (
-                  <span className="flex items-center justify-center gap-2">
-                    Sign In
-                    <ChevronRight size={14} />
-                  </span>
-                )}
-              </Button>
-            </form>
           </div>
         </div>
       </div>

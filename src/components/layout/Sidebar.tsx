@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuthStore } from '@/store/authStore'
-import { 
+import {
   LayoutDashboard, Briefcase, FileSpreadsheet, Users, Megaphone, 
   Rocket, CheckSquare, Calendar, Folder, Clock, X, Terminal
 } from 'lucide-react'
@@ -41,6 +41,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
   const currentLinks = linksByRole[user.role] || []
 
+  const roleLabel = user.role === 'admin' ? 'Administration' : user.role === 'founder' ? 'Founder workspace' : 'Mentor workspace'
+
   return (
     <>
       {/* Mobile Sidebar overlay */}
@@ -53,19 +55,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
       {/* Sidebar container */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 glass-panel border-r border-slate-200/80 dark:border-slate-900/80 flex flex-col transition-transform duration-300 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-[17rem] flex-col border-r border-slate-200/80 bg-white/95 shadow-2xl shadow-slate-950/10 backdrop-blur-xl transition-transform duration-300 dark:border-slate-800 dark:bg-slate-950/95 lg:static lg:w-72 lg:translate-x-0 lg:shadow-none ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Brand header */}
-        <div className="h-14 px-6 border-b border-slate-200/80 dark:border-slate-900/80 flex items-center justify-between">
-          <div className="flex items-center gap-2 select-none">
-            <div className="p-1.5 rounded-lg bg-primary-600 text-white shadow-md shadow-indigo-600/20">
-              <Terminal size={14} />
+        <div className="flex h-[72px] items-center justify-between border-b border-slate-200/80 px-5 dark:border-slate-800 lg:px-6">
+          <div className="flex items-center gap-3 select-none">
+            <div className="rounded-xl bg-primary-600 p-2 text-white shadow-lg shadow-primary-600/25">
+              <Terminal size={17} />
             </div>
-            <span className="font-heading font-bold text-sm text-slate-900 dark:text-white tracking-wide">
-              Incubix
-            </span>
+            <div>
+              <span className="block font-heading text-base font-bold tracking-tight text-slate-950 dark:text-white">Incubix</span>
+              <span className="block text-[10px] font-medium uppercase tracking-[0.16em] text-slate-400">Venture OS</span>
+            </div>
           </div>
           <Button
             variant="ghost"
@@ -78,7 +81,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Navigation links */}
-        <nav className="flex-1 px-4 py-5 space-y-1 overflow-y-auto">
+        <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-5 lg:px-4">
+          <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">{roleLabel}</p>
           {currentLinks.map((link) => {
             const Icon = link.icon
             return (
@@ -87,27 +91,30 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 to={link.to}
                 onClick={onClose}
                 className={({ isActive }) =>
-                  `flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-medium tracking-wider uppercase transition-all duration-150 ${
+                  `group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150 ${
                     isActive
-                      ? 'bg-primary-600 text-white shadow-sm shadow-indigo-600/10'
-                      : 'text-slate-400 dark:text-slate-500 hover:bg-slate-100/60 dark:hover:bg-slate-900 hover:text-slate-800 dark:hover:text-slate-200'
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-500/10 dark:text-primary-300'
+                      : 'text-slate-500 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-100'
                   }`
                 }
               >
-                <Icon size={14} />
+                {({ isActive }) => <>
+                  {isActive && <span className="absolute left-0 h-5 w-1 rounded-r-full bg-primary-600" />}
+                  <Icon size={17} className="shrink-0" />
                 <span>{link.label}</span>
+                </>}
               </NavLink>
             )
           })}
         </nav>
 
         {/* Footer info card */}
-        <div className="p-4 border-t border-slate-200/80 dark:border-slate-900/80">
-          <div className="bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-900/60 rounded-lg p-3 text-center select-none animate-in fade-in duration-300">
-            <span className="text-[9px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-semibold">
+        <div className="border-t border-slate-200/80 p-4 dark:border-slate-800">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3.5 text-left shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
               Cohort 2026-B
             </span>
-            <p className="text-[10px] text-slate-600 dark:text-slate-400 font-medium mt-0.5">
+            <p className="mt-1 text-xs font-medium text-slate-700 dark:text-slate-300">
               Main Campus Center
             </p>
           </div>
