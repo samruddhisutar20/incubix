@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthStore } from '@/store/authStore'
 import { ProtectedRoute } from './ProtectedRoute'
 import { DashboardLayout } from '@/components/layout/DashboardLayout'
-import { Login } from '@/features/auth/Login'
+import Login from "@/features/auth/Login";
 import { AdminDashboard } from '@/features/dashboard/AdminDashboard'
 import { FounderDashboard } from '@/features/dashboard/FounderDashboard'
 import { MentorDashboard } from '@/features/dashboard/MentorDashboard'
