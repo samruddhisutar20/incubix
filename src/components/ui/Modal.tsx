@@ -44,30 +44,30 @@ export const Modal: React.FC<ModalProps> = ({
       />
       
       {/* Modal Box */}
-      <div className="relative w-full max-w-lg rounded-xl bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-900 shadow-2xl p-6 flex flex-col gap-4 animate-in fade-in zoom-in duration-200 text-left">
+      <div className="relative w-full max-w-lg rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col gap-0 animate-in fade-in zoom-in duration-300">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-900/80 pb-3">
-          <h3 className="text-base font-semibold text-slate-900 dark:text-white tracking-tight">
+        <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 py-4">
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
             {title}
           </h3>
           <Button
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="p-1 rounded-md text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+            className="h-8 w-8 p-0"
           >
-            <X size={16} />
+            <X size={18} />
           </Button>
         </div>
         
         {/* Body */}
-        <div className="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+        <div className="px-6 py-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300 max-h-[calc(100vh-280px)] overflow-y-auto">
           {children}
         </div>
         
         {/* Footer */}
         {footerActions && (
-          <div className="flex items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-900/80 pt-3">
+          <div className="flex items-center justify-end gap-3 border-t border-slate-200 dark:border-slate-800 px-6 py-4">
             {footerActions}
           </div>
         )}
