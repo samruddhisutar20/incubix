@@ -55,66 +55,77 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
       {/* Sidebar container */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-[17rem] flex-col border-r border-slate-200/80 bg-white/95 shadow-2xl shadow-slate-950/10 backdrop-blur-xl transition-transform duration-300 dark:border-slate-800 dark:bg-slate-950/95 lg:static lg:w-72 lg:translate-x-0 lg:shadow-none ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-[17rem] flex-col border-r border-slate-200 bg-white shadow-xl shadow-slate-950/5 backdrop-blur-xl transition-transform duration-300 dark:border-slate-800 dark:bg-slate-950 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        } lg:relative lg:translate-x-0`}
       >
-        {/* Brand header */}
-        <div className="flex h-[72px] items-center justify-between border-b border-slate-200/80 px-5 dark:border-slate-800 lg:px-6">
+        {/* Brand header - fixed height matching Header */}
+        <div className="flex h-[72px] shrink-0 items-center justify-between border-b border-slate-200 px-5 dark:border-slate-800 lg:px-6">
           <div className="flex items-center gap-3 select-none">
-            <div className="rounded-xl bg-primary-600 p-2 text-white shadow-lg shadow-primary-600/25">
-              <Terminal size={17} />
+            <div className="rounded-lg bg-primary-600 p-2 text-white shadow-md shadow-primary-600/20">
+              <Terminal size={18} />
             </div>
-            <div>
-              <span className="block font-heading text-base font-bold tracking-tight text-slate-950 dark:text-white">Incubix</span>
-              <span className="block text-[10px] font-medium uppercase tracking-[0.16em] text-slate-400">Venture OS</span>
+            <div className="min-w-0">
+              <p className="block font-heading text-base font-bold tracking-tight text-slate-950 dark:text-white">Incubix</p>
+              <p className="block text-[10px] font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500">Venture OS</p>
             </div>
           </div>
           <Button
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="lg:hidden p-1.5 rounded-md"
+            className="lg:hidden"
           >
-            <X size={14} />
+            <X size={16} />
           </Button>
         </div>
 
-        {/* Navigation links */}
-        <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-5 lg:px-4">
-          <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">{roleLabel}</p>
-          {currentLinks.map((link) => {
-            const Icon = link.icon
-            return (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                onClick={onClose}
-                className={({ isActive }) =>
-                  `group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150 ${
-                    isActive
-                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-500/10 dark:text-primary-300'
-                      : 'text-slate-500 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-100'
-                  }`
-                }
-              >
-                {({ isActive }) => <>
-                  {isActive && <span className="absolute left-0 h-5 w-1 rounded-r-full bg-primary-600" />}
-                  <Icon size={17} className="shrink-0" />
-                <span>{link.label}</span>
-                </>}
-              </NavLink>
-            )
-          })}
+        {/* Navigation links - scrollable */}
+        <nav className="flex-1 overflow-y-auto px-4 py-4">
+          {/* Section label */}
+          <p className="mb-3 px-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            {roleLabel}
+          </p>
+
+          {/* Navigation items */}
+          <div className="space-y-1">
+            {currentLinks.map((link) => {
+              const Icon = link.icon
+              return (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={onClose}
+                  className={({ isActive }) =>
+                    `group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150 ${
+                      isActive
+                        ? 'bg-primary-50 text-primary-700 dark:bg-primary-500/10 dark:text-primary-300'
+                        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900/50 dark:hover:text-slate-200'
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {isActive && (
+                        <span className="absolute -left-4 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-lg bg-primary-600" />
+                      )}
+                      <Icon size={18} className="shrink-0" />
+                      <span className="truncate">{link.label}</span>
+                    </>
+                  )}
+                </NavLink>
+              )
+            })}
+          </div>
         </nav>
 
-        {/* Footer info card */}
-        <div className="border-t border-slate-200/80 p-4 dark:border-slate-800">
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3.5 text-left shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+        {/* Footer info card - fixed */}
+        <div className="shrink-0 border-t border-slate-200 p-4 dark:border-slate-800">
+          <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-left shadow-sm dark:border-slate-800 dark:bg-slate-900/50">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
               Cohort 2026-B
-            </span>
-            <p className="mt-1 text-xs font-medium text-slate-700 dark:text-slate-300">
+            </p>
+            <p className="mt-1.5 text-xs font-medium text-slate-700 dark:text-slate-300">
               Main Campus Center
             </p>
           </div>
